@@ -1,0 +1,29 @@
+<div class="form-wrapper">
+  <div class="form-signin border p-5">
+    <form class="">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+      </div>
+
+      <div class="form-label-group mb-3">
+        <label>Email address</label>
+        <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">
+      </div>
+
+      <div class="form-label-group mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Password" required="">
+      </div>
+
+      <div class="form-label-group mb-3">
+        <label>Confirm password</label>
+        <input type="password" class="form-control" placeholder="Confirm password" required="">
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    </form>
+    <div class="text-center mt-3">
+      <p>Already have an account ? <a [routerLink]="['/sign-in']">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
