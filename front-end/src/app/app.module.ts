@@ -8,6 +8,8 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 import {NearbyShopsComponent} from './nearby-shops/nearby-shops.component';
 import {PreferredShopsComponent} from './preferred-shops/preferred-shops.component';
 import {HeaderComponent} from './components/header/header.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import {HeaderComponent} from './components/header/header.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
