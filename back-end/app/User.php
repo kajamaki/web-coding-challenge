@@ -111,6 +111,12 @@ class User extends EloquentUser implements RoleableInterface, PermissibleInterfa
      */
     protected static $throttlingModel = 'Cartalyst\Sentinel\Throttling\EloquentThrottle';
 
+
+    public function Shops()
+    {
+        return $this->hasMany('App\Shop');
+    }
+
     /**
      * Returns an array of login column names.
      *

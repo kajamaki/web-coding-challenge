@@ -13,4 +13,9 @@ class Shop extends Model
         'liked',
         'disliked_timeout',
     ];
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+
+    }
 }
