@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\NearbyShopsRequest;
+use App\Repositories\PlacesApi;
+use App\Shop;
 
 class ShopController extends Controller
 {
-    public function getNearbyShops()
+    protected $PlacesApi;
+
+    /**
+     * ShopController constructor.
+     */
+    public function __construct()
     {
-        return response()->json();
+        $this->PlacesApi = new PlacesApi();
     }
+
+    public function getNearbyShops(NearbyShopsRequest $request)
+    {
+        $data = $this->PlacesApi->getNearbyShops($request['latitude'], $request['longitude']);
+        return response()->json($data);
+    }
+
 }
