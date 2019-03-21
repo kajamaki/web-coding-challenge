@@ -17,3 +17,15 @@
 .main-page {
   min-height: calc(100vh - 58px);
 }
+
+.no-image {
+  text-align: center;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+  span:first-child{
+    margin-right: 10px;
+  }
+}

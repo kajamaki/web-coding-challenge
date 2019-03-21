@@ -3,18 +3,25 @@
   <div class="album py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div *ngFor="let shop of shops"
+             class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img class="bd-placeholder-img card-img-top"
-                 src="http://armandjung-depute.fr/wp-content/uploads/2019/01/5139579-nature-pics.jpeg">
+
+            <img *ngIf="shop.image, else  noImage" class="bd-placeholder-img card-img-top"
+                 [src]="'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + shop.image + '&key=AIzaSyBAP6NJD9DEEZTsUnDurQIs4nVF-AkXM8c'">
+            <ng-template #noImage>
+              <div class="no-image">
+                <span> No image was found</span>
+                <span>😬</span>
+              </div>
+            </ng-template>
             <div class="card-body">
-              <p class="card-text">This is a wider card with </p>
+              <p class="card-text">{{shop.name}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-success">Like</button>
+                  <button  type="button" class="btn btn-sm btn-success">Like</button>
                   <button type="button" class="btn btn-sm btn-danger">Dislike</button>
                 </div>
-                <small class="text-muted">9 miles</small>
               </div>
             </div>
           </div>

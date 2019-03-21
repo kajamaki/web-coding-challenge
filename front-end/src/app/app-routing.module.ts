@@ -4,6 +4,7 @@ import {SignInComponent} from './sign-in/sign-in.component';
 import {NearbyShopsComponent} from './nearby-shops/nearby-shops.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {PreferredShopsComponent} from './preferred-shops/preferred-shops.component';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,12 +23,18 @@ const routes: Routes = [
   {
     path: 'nearby-shops',
     component: NearbyShopsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'preferred-shops',
     component: PreferredShopsComponent,
+    canActivate: [AuthGuard]
   },
-
+  // otherwise redirect to home
+  {
+    path: '**',
+    redirectTo: 'nearby-shops'
+  }
 ];
 
 @NgModule({
