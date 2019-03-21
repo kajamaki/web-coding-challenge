@@ -26,7 +26,6 @@ class PlacesApi
     {
 
         $user = Auth::user();
-        // ->where('disliked_timeout', '>=', Carbon::now())
         $shops = $user->shops()->where('user_id', '=', Auth::user()->id)->where(function ($query){
             $query->whereNull('disliked_timeout')->orWhere('disliked_timeout', '>=', Carbon::now());
         })->get();
