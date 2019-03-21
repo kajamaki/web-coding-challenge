@@ -26,7 +26,10 @@ class PlacesApi
     {
 
         $user = Auth::user();
-        $shops = $user->shops()->orWhere('disliked_timeout', '<>', null)->orWhere('disliked_timeout', '<=', Carbon::now())->get();
+        // ->where('disliked_timeout', '>=', Carbon::now())
+        $shops = $user->shops()->where('user_id', '=', Auth::user()->id)->where(function ($query){
+            $query->whereNull('disliked_timeout')->orWhere('disliked_timeout', '>=', Carbon::now());
+        })->get();
         $client = new \GuzzleHttp\Client();
 
         $url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';

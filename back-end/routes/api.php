@@ -17,13 +17,12 @@ Route::post('register', 'UserController@register');
 Route::post('login', 'AuthController@login');
 
 
-
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', 'UserController@getCurrentUser');
 
     Route::get('nearby_shops', 'ShopController@getNearbyShops');
     Route::get('Preferred_shops', 'ShopController@getPreferredShops');
     Route::post('add_to_preferred', 'ShopController@addToPreferred');
-    Route::put('remove_from_preferred/{shop}', 'ShopController@removeFromPreferred');
-
+    Route::delete('remove_from_preferred/{shop}', 'ShopController@removeFromPreferred');
+    Route::post('dislike_shop', 'ShopController@dislikeShop');
 });

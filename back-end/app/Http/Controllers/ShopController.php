@@ -31,7 +31,9 @@ class ShopController extends Controller
 
     public function getPreferredShops()
     {
-        $shops = ShopResource::collection(Auth::user()->shops()->orWhere('disliked_timeout', '==', null)->orWhere('disliked_timeout', '>=', Carbon::now())->get());
+        $shops = ShopResource::collection(Auth::user()->shops()->where('user_id', '=', Auth::user()->id)->where(function ($query) {
+            $query->orWhere('disliked_timeout', null)->orWhere('disliked_timeout', '<=', Carbon::now());
+        })->get());
         return response()->json($shops);
     }
 
@@ -51,6 +53,19 @@ class ShopController extends Controller
             'user_id' => Auth::user()->id,
 
         ]);
+        return new ShopResource($shop);
+    }
+
+    public function dislikeShop(AddToPreferredRequest $request)
+    {
+        $shop = Shop::create([
+            'google_id' => $request['googleId'],
+            'name' => $request['name'],
+            'image' => $request['image'],
+            'user_id' => Auth::user()->id,
+            'disliked_timeout' => Carbon::now()->addHours(2),
+        ]);
+
         return new ShopResource($shop);
     }
 }
