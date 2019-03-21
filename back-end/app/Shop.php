@@ -11,7 +11,6 @@ class Shop extends Model
         'google_id',
         'name',
         'image',
-        'liked',
         'disliked_timeout',
         'user_id'
     ];

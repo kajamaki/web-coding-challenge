@@ -26,12 +26,8 @@ class PlacesApi
     {
 
         $user = Auth::user();
-//        $shops = $user->shops();
-
-        $dislikedShops = $user->shops()->where('disliked_timeout', '<>', null)->where('disliked_timeout', '<=', Carbon::now())->get();
-        $likedShops = $user->shops()->whereLiked(true)->get();
+        $shops = $user->shops()->orWhere('disliked_timeout', '<>', null)->orWhere('disliked_timeout', '<=', Carbon::now())->get();
         $client = new \GuzzleHttp\Client();
-
 
         $url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
         $url .= $latitude . ',';
@@ -54,15 +50,9 @@ class PlacesApi
                 'googleId' => $result->id,
                 'name' => $result->name,
                 'image' => (isset($result->photos) ? $result->photos[0]->photo_reference : null),
-                'liked' => 0,
             ];
-            foreach ($likedShops as $shop) {
-                if ($shop->google_id == $result->id) {
-                    $row['liked'] = $shop->liked;
-                    break;
-                }
-            }
-            foreach ($dislikedShops as $shop) {
+
+            foreach ($shops as $shop) {
                 if ($shop->google_id == $result->id) {
                     $row = [];
                     break;

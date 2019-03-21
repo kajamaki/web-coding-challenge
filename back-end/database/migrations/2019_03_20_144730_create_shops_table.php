@@ -18,7 +18,6 @@ class CreateShopsTable extends Migration
             $table->string('google_id');
             $table->string('name');
             $table->string('image')->nullable();
-            $table->boolean('liked')->default(false);
             $table->dateTime('disliked_timeout')->nullable();
 
             $table->unsignedInteger('user_id');

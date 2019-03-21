@@ -26,7 +26,6 @@ class AddToPreferredRequest extends FormRequest
         return [
             'googleId' => 'required',
             'name' => 'required',
-            'image' => 'required',
         ];
     }
 }

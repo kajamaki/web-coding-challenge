@@ -18,7 +18,6 @@ class Shop extends JsonResource
             'googleId' => $this->google_id,
             'name' => $this->name,
             'image' => $this->image,
-            'liked' => $this->liked,
         ];
     }
 }

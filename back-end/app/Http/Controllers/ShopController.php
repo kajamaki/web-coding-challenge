@@ -6,6 +6,7 @@ use App\Http\Requests\AddToPreferredRequest;
 use App\Http\Requests\NearbyShopsRequest;
 use App\Repositories\PlacesApi;
 use App\Shop;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Shop as ShopResource;
 
@@ -30,17 +31,15 @@ class ShopController extends Controller
 
     public function getPreferredShops()
     {
-        $shops = ShopResource::collection(Auth::user()->shops()->whereLiked(true)->get());
+        $shops = ShopResource::collection(Auth::user()->shops()->orWhere('disliked_timeout', '==', null)->orWhere('disliked_timeout', '>=', Carbon::now())->get());
         return response()->json($shops);
     }
 
     public function removeFromPreferred(Shop $shop)
     {
         if (Auth::user()->id != $shop->user_id) return response()->json(['error' => 'forbidden'], 403);
-        if ($shop->liked) $shop->disliked_timeout = null;
-        $shop->liked = !$shop->liked;
-        $shop->save();
-        return new ShopResource($shop);
+        $shop->delete();
+        return $shop->delete();
     }
 
     public function addToPreferred(AddToPreferredRequest $request)
@@ -49,8 +48,8 @@ class ShopController extends Controller
             'google_id' => $request['googleId'],
             'name' => $request['name'],
             'image' => $request['image'],
-            'liked' => true,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+
         ]);
         return new ShopResource($shop);
     }
