@@ -33,7 +33,12 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    return this.http.get<any>(`http://127.0.0.1:8000/api/sign_out`)
+      .pipe(map(() => {
+          localStorage.removeItem('currentUser');
+          this.currentUserSubject.next(null);
+        })
+      );
+
   }
 }
