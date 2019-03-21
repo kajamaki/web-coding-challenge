@@ -6,6 +6,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {first} from 'rxjs/operators';
 // import custom validator to validate that password and confirm password fields match
 import {MustMatch} from '../helpers/must-match.validator';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,6 +24,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
+    private notifier: NotifierService,
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -58,11 +60,12 @@ export class SignUpComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // this.alertService.success('Registration successful', true);
+          this.notifier.notify('success', 'Account was crated, please sign in');
           this.router.navigate(['/sign-in']);
         },
         error => {
-          // this.alertService.error(error);
+          this.notifier.hideAll();
+          this.notifier.notify('error', error);
           this.loading = false;
         });
   }

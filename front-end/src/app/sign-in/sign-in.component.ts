@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 import {first} from 'rxjs/operators';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,7 +19,8 @@ export class SignInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private notifier: NotifierService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -55,7 +57,9 @@ export class SignInComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/nearby-shops']);
         },
-        error => {
+        (error) => {
+          this.notifier.hideAll();
+          this.notifier.notify('error', error);
           this.loading = false;
         });
   }

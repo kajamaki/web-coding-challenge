@@ -19,18 +19,16 @@
             <div class="card-body">
               <p class="card-text">{{shop.name}}</p>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group" *ngIf="!shop.liked,else removeFromLikeListButton">
+                <div class="btn-group">
                   <button (click)="addToPreferred(i)"
                           type="button"
                           class="btn btn-sm btn-success">Like
                   </button>
-                  <button type="button" class="btn btn-sm btn-danger">Dislike</button>
+                  <button (click)="dislikeShop(i)"
+                          type="button"
+                          class="btn btn-sm btn-danger">Dislike
+                  </button>
                 </div>
-                <ng-template #removeFromLikeListButton>
-                  <div class="btn-group">
-                    <button (click)="removeFromLikeList(i)" type="button" class="btn btn-sm btn-danger">Remove</button>
-                  </div>
-                </ng-template>
 
               </div>
             </div>

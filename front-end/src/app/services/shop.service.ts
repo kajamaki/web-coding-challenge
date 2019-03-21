@@ -20,11 +20,19 @@ export class ShopService {
   }
 
   removeFromPreferred(googleId: string) {
-    return this.http.put(`http://127.0.0.1:8000/api/remove_from_preferred/${googleId}`, {});
+    return this.http.delete(`http://127.0.0.1:8000/api/remove_from_preferred/${googleId}`);
   }
 
   addToPreferred(params: Shop) {
     return this.http.post(`http://127.0.0.1:8000/api/add_to_preferred`, JSON.stringify(params), {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
+  dislikeShop(params: Shop) {
+    return this.http.post(`http://127.0.0.1:8000/api/dislike_shop`, JSON.stringify(params), {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

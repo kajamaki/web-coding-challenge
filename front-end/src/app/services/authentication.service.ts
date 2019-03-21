@@ -23,14 +23,15 @@ export class AuthenticationService {
   login(email: string, password: string) {
     return this.http.post<any>(`http://127.0.0.1:8000/api/login`, {email, password})
       .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-        }
-
-        return user;
-      }));
+          if (user && user.token) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+          }
+          return user;
+        })
+      );
   }
+
   logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);

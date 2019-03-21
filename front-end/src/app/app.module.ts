@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {ErrorInterceptor} from './interceptor/error.interceptor';
+import {NotifierModule} from 'angular-notifier';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,7 @@ import {ErrorInterceptor} from './interceptor/error.interceptor';
     SignUpComponent,
     NearbyShopsComponent,
     PreferredShopsComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,8 @@ import {ErrorInterceptor} from './interceptor/error.interceptor';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    NotifierModule,
+    NgxSpinnerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
