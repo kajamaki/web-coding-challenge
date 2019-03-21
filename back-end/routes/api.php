@@ -23,5 +23,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::get('nearby_shops', 'ShopController@getNearbyShops');
     Route::get('Preferred_shops', 'ShopController@getPreferredShops');
+    Route::post('add_to_preferred', 'ShopController@addToPreferred');
+    Route::put('remove_from_preferred/{shop}', 'ShopController@removeFromPreferred');
 
 });

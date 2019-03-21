@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 
+use Carbon\Carbon;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,10 @@ class PlacesApi
     {
 
         $user = Auth::user();
-        $shops = $user->shops()->get();
+//        $shops = $user->shops();
+
+        $dislikedShops = $user->shops()->where('disliked_timeout', '<>', null)->where('disliked_timeout', '<=', Carbon::now())->get();
+        $likedShops = $user->shops()->whereLiked(true)->get();
         $client = new \GuzzleHttp\Client();
 
 
@@ -47,11 +51,18 @@ class PlacesApi
         $results = [];
         foreach ($google_results as $result) {
             $row = [
-                'google_id' => $result->id,
+                'googleId' => $result->id,
                 'name' => $result->name,
                 'image' => (isset($result->photos) ? $result->photos[0]->photo_reference : null),
+                'liked' => 0,
             ];
-            foreach ($shops as $shop) {
+            foreach ($likedShops as $shop) {
+                if ($shop->google_id == $result->id) {
+                    $row['liked'] = $shop->liked;
+                    break;
+                }
+            }
+            foreach ($dislikedShops as $shop) {
                 if ($shop->google_id == $result->id) {
                     $row = [];
                     break;
