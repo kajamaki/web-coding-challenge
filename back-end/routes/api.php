@@ -22,5 +22,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', 'UserController@getCurrentUser');
 
     Route::get('nearby_shops', 'ShopController@getNearbyShops');
+    Route::get('Preferred_shops', 'ShopController@getPreferredShops');
 
 });
