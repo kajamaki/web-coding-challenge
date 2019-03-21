@@ -40,4 +40,26 @@ export class NearbyShopsComponent implements OnInit {
     }
   }
 
+  addToPreferred(index: number) {
+    console.log(this.shops[index]);
+    this.shopService.addToPreferred(this.shops[index]).subscribe(
+      (data) => {
+        this.shops[index].liked = true;
+      },
+      (error) => {
+
+      }
+    );
+  }
+
+  removeFromLikeList(index: number) {
+    this.shopService.removeFromPreferred(this.shops[index].googleId).subscribe(
+      (data) => {
+        this.shops[index].liked = false;
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
 }

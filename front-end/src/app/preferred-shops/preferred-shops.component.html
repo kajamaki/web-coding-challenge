@@ -3,11 +3,13 @@
   <div class="album py-5">
     <div class="container">
       <div class="row">
-        <div *ngFor="let shop of shops"
+        <div *ngFor="let shop of shops; let i = index"
              class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img *ngIf="shop.image, else  noImage" class="bd-placeholder-img card-img-top"
-                 [src]="'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + shop.image + '&key=AIzaSyBAP6NJD9DEEZTsUnDurQIs4nVF-AkXM8c'">
+            <div class="card-image">
+              <img *ngIf="shop.image, else  noImage" class="bd-placeholder-img card-img-top"
+                   [src]="'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + shop.image + '&key=AIzaSyBAP6NJD9DEEZTsUnDurQIs4nVF-AkXM8c'">
+            </div>
             <ng-template #noImage>
               <div class="no-image">
                 <span> No image was found</span>
@@ -18,7 +20,9 @@
               <p class="card-text">{{shop.name}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button (click)="removeFromPreferred(shop.googleId)" type="button" class="btn btn-sm btn-danger">Remove</button>
+                  <button (click)="removeFromPreferred(i)" type="button" class="btn btn-sm btn-danger">
+                    Remove
+                  </button>
                 </div>
               </div>
             </div>

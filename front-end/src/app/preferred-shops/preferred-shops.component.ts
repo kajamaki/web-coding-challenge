@@ -19,10 +19,11 @@ export class PreferredShopsComponent implements OnInit {
     this.getPreferredShops();
   }
 
-  removeFromPreferred(googleId: string) {
-    this.shopService.removeFromPreferred(googleId).subscribe(
+  removeFromPreferred(index: number) {
+    this.shopService.removeFromPreferred(this.shops[index].googleId).subscribe(
       (data) => {
-        this.shops = this.shops.filter(item => item.googleId !== googleId);
+        this.shops.splice(index, 1);
+        // this.shops = this.shops.filter(item => item.googleId !== googleId);
       }, (error) => {
         console.log(error);
       }
